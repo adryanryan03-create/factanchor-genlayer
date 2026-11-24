@@ -6,6 +6,15 @@ does not mean "someone claims this page says X" — it means GenLayer's
 validators independently fetched the page, extracted the answer, and agreed
 on it exactly before anything was written on-chain.
 
+## Live deployment (StudioNet)
+
+FactAnchor is deployed and finalized on GenLayer StudioNet:
+
+- **Contract:** `0xa5b15C2F47770BD6F10f51BE0bBf945f8149D127`
+- **Explorer:** https://explorer-studio.genlayer.com/address/0xa5b15C2F47770BD6F10f51BE0bBf945f8149D127
+- **Deploy tx:** `0x323d25c7aeb94e96172b48d9601c616b5154f705740c09ef737cbc843af41914`
+- Deployed from GenLayer Studio; read methods `get_fact`, `get_fact_count`, `get_check`, `get_check_count` and write methods `anchor_fact`, `check_claim` are live.
+
 ## Why this is useful
 
 Smart contracts cannot read the web, and a single oracle feed is a single
