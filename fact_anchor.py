@@ -71,8 +71,7 @@ class FactAnchor(gl.Contract):
     def _fetch_page_text(self, url: str) -> str:
         # Runs inside the non-deterministic block: the leader fetches the
         # page, and each validator fetches it again independently.
-        response = gl.nondet.web.get(url)
-        return str(response)[:6000]
+        return str(gl.nondet.web.render(url, mode="text"))[:6000]
 
     def _extract_answer(self, url: str, question: str) -> str:
         def run_extraction() -> str:
@@ -96,10 +95,10 @@ It is mandatory that you respond only using the JSON format above,
 nothing else. Your output must be only JSON without any formatting
 prefix or suffix, perfectly parsable by a JSON parser.
             """
-            result = gl.exec_prompt(task).replace("```json", "").replace("```", "")
+            result = gl.nondet.exec_prompt(task).replace("```json", "").replace("```", "")
             return json.dumps(json.loads(result), sort_keys=True)
 
-        verdict = json.loads(gl.eq_principle_strict_eq(run_extraction))
+        verdict = json.loads(gl.eq_principle.strict_eq(run_extraction))
         answer = str(verdict.get("answer", "NOT_FOUND")).strip()
         return answer
 
@@ -124,10 +123,10 @@ It is mandatory that you respond only using the JSON format above,
 nothing else. Your output must be only JSON without any formatting
 prefix or suffix, perfectly parsable by a JSON parser.
             """
-            result = gl.exec_prompt(task).replace("```json", "").replace("```", "")
+            result = gl.nondet.exec_prompt(task).replace("```json", "").replace("```", "")
             return json.dumps(json.loads(result), sort_keys=True)
 
-        verdict = json.loads(gl.eq_principle_strict_eq(run_verification))
+        verdict = json.loads(gl.eq_principle.strict_eq(run_verification))
         return bool(verdict.get("supported", False))
 
     # ------------------------------------------------------------------
